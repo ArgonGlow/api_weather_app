@@ -1,8 +1,20 @@
 const weatherIcon = document.getElementById('weather-icon')
-const localTime = document.querySelector('#local-time')
-const weatherDiv = document.querySelector('#weather')
-const currentTemp = document.querySelector('#temperature')
-const currentWind = document.querySelector('#wind')
+const localTime = document.getElementById('local-time')
+const weatherDiv = document.getElementById('weather')
+const currentTemp = document.getElementById('temperature')
+const currentWind = document.getElementById('wind')
+const currentWindDegrees = document.getElementById('wind-degrees')
+const currentWindSpeed = document.getElementById('wind-speed')
+const currentWindDirection = document.getElementById('wind-direction')
+
+const tomorrowWeatherIcon = document.getElementById('t-weather-icon')
+const tomorrowTemp = document.getElementById('t-temperature')
+const tomorrowWind = document.getElementById('t-wind')
+const tomorrowWindDegrees = document.getElementById('t-wind-degrees')
+const tomorrowWindSpeed = document.getElementById('t-wind-speed')
+const tomorrowWindDirection = document.getElementById('t-wind-direction')
+
+
 
 let latitude = 51.8428463
 let longitude = 5.7630919
@@ -19,10 +31,6 @@ fetch(apiAddress)
     .catch(console.error)
 
 function getWeather(data) {
-    // weatherDiv.innerText = `Current weather: ${data.current.weather[0].main}/${data.current.weather[0].description}`
-    // weatherIcon.src = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`
-    // currentTemp.innerText = `Current temperature: ${data.current.temp} Celcius`
-    // hourlyTemp.innerText = data.hourly[1].temp
 
     let windDegrees = data.current.wind_deg
     let windDirection = ''
@@ -46,10 +54,18 @@ function getWeather(data) {
         windDirection = 'NE'
     }
 
-    // weatherDiv.innerText = `Current weather: ${data.current.weather[0].main}/${data.current.weather[0].description}`
     weatherDiv.innerText = `${data.current.weather[0].main}`
-    weatherIcon.src = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`
+    weatherIcon.src = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@4x.png`
     currentTemp.innerText = `${data.current.temp.toString().slice(0,-1)}°C`
-    currentWind.innerText = `${windDirection}, ${windDegrees}°
-    ${data.current.wind_speed} m/s`
+    currentWindDegrees.innerText = `(${windDegrees}°)\n\n`
+    currentWindDirection.innerText = `${windDirection}`
+    currentWindSpeed.innerText = `${data.current.wind_speed.toString().split('.')[0]} m/s`
+
+    tomorrowWeatherIcon.src = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@4x.png`
+    tomorrowTemp.innerText = `${data.current.temp.toString().slice(0,-1)}°C`
+    tomorrowWindDegrees.innerText = `(${windDegrees}°)\n\n`
+    tomorrowWindDirection.innerText = `${windDirection}`
+    tomorrowWindSpeed.innerText = `${data.current.wind_speed.toString().split('.')[0]} m/s`
+    
+
 }

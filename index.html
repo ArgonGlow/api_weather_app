@@ -10,16 +10,38 @@
   <script type="module" src="app.js"></script>
 </head>
 <body>
-  <h1>Sunset Weather</h1>
-  <span style="text-align:center" ><h3>Current Weather</h3></span>
+  <div class="header">
+    <h1>Sunset Weather</h1>
+    <span style="text-align:center" ><h3>Current Weather</h3></span>
+  </div>
   <div class="weather-grid">
       <!-- <div class="local-time"></div> -->
       <div class="weather-tile" id="weather"></div>
       <div class="weather-tile" id="weather">
-        <img id="weather-icon" src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+        <img id="weather-icon" src="" alt="weather icon">
       </div>
       <div class="weather-tile" id="temperature"></div>
-      <div class="weather-tile" id="wind"></div>
-  </div>   
+      <div class="weather-tile" id="wind">
+        <div id="wind-degrees"></div>
+        <div id="wind-direction"></div>
+        <div id="wind-speed"></div>
+      </div>
+  </div>
+  <div class="header">
+    <span style="text-align:center" ><h3>Tomorrow</h3></span>
+  </div>
+  <div class="weather-grid">
+    <!-- <div class="local-time"></div> -->
+    <div class="weather-tile" id="t-weather"></div>
+    <div class="weather-tile" id="t-weather">
+      <img id="t-weather-icon" src="" alt="weather icon">
+    </div>
+    <div class="weather-tile" id="t-temperature"></div>
+    <div class="weather-tile" id="t-wind">
+      <div class="wind-top" id="t-wind-degrees"></div>
+      <div id="t-wind-direction"></div>
+      <div class="wind-bottom" id="t-wind-speed"></div>
+    </div>
+  </div>
 </body>
 </html>
