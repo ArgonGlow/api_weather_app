@@ -14,7 +14,8 @@ body {
     align-content: center;
     min-width: 100%;
     grid-template-columns: repeat(2, 30vh);
-    grid-template-rows: minmax(120px, auto) repeat(2, 30vh);
+    /* grid-template-rows: minmax(120px, auto) repeat(2, 30vh); */
+    grid-template-rows: repeat(2, 30vh);
 }
 
 .weather-tile {
