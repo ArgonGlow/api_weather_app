@@ -36,13 +36,15 @@ function getWeather(data) {
 
     let windDegrees = data.current.wind_deg
     let windDirection = windCardinal(windDegrees)
-    let tWindDegrees = data.daily[0].wind_deg
+    let tWindDegrees = data.daily[1].wind_deg
     let tWindDirection = windCardinal(tWindDegrees)
     let curTimeDate = new Date(data.current.dt*1000)
-    let tomTimeDate = new Date(data.daily[0].dt*1000)
+    let tomTimeDate = new Date(data.daily[1].dt*1000)
     
     curTimeDate = curTimeDate.toDateString()
     tomTimeDate = tomTimeDate.toDateString()
+
+    console.log(tomTimeDate)
 
     localTime.innerText = `${curTimeDate.slice(0, 3)}
     ${curTimeDate.slice(4,-5)}`
@@ -55,12 +57,12 @@ function getWeather(data) {
 
     tomorrowlocalTime.innerText = `${tomTimeDate.slice(0,3)}
     ${tomTimeDate.slice(4,-5)}`
-    tomorrowWeather.innerText = `${data.daily[0].weather[0].main}`
-    tomorrowWeatherIcon.src = `http://openweathermap.org/img/wn/${data.daily[0].weather[0].icon}@4x.png`
-    tomorrowTemp.innerText = `${data.daily[0].temp.max.toString().slice(0,-1)}°C`
+    tomorrowWeather.innerText = `${data.daily[1].weather[0].main}`
+    tomorrowWeatherIcon.src = `http://openweathermap.org/img/wn/${data.daily[1].weather[0].icon}@4x.png`
+    tomorrowTemp.innerText = `${data.daily[1].temp.max.toString().slice(0,-1)}°C`
     tomorrowWindDegrees.innerText = `(${tWindDegrees}°)\n\n`
     tomorrowWindDirection.innerText = `${tWindDirection}`
-    tomorrowWindSpeed.innerText = `${data.daily[0].wind_speed.toString().split('.')[0]} m/s`
+    tomorrowWindSpeed.innerText = `${data.daily[1].wind_speed.toString().split('.')[0]} m/s`
 }
 
 function windCardinal(windDegrees) {
