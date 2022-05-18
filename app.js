@@ -35,12 +35,37 @@ fetch(apiAddress)
 function getWeather(data) {
 
     let windDegrees = data.current.wind_deg
-    let windDirection = ''
+    let windDirection = windCardinal(windDegrees)
     let tWindDegrees = data.daily[0].wind_deg
-    let tWindDirection = ''
+    let tWindDirection = windCardinal(tWindDegrees)
+    let curTimeDate = new Date(data.current.dt*1000)
+    let tomTimeDate = new Date(data.daily[0].dt*1000)
+    
+    curTimeDate = curTimeDate.toDateString()
+    tomTimeDate = tomTimeDate.toDateString()
 
-    console.log(windDirection)
+    localTime.innerText = `${curTimeDate.slice(0, 3)}
+    ${curTimeDate.slice(4,-5)}`
+    weatherDiv.innerText = `${data.current.weather[0].main}`
+    weatherIcon.src = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@4x.png`
+    currentTemp.innerText = `${data.current.temp.toString().slice(0,-1)}°C`
+    currentWindDegrees.innerText = `(${windDegrees}°)\n\n`
+    currentWindDirection.innerText = `${windDirection}`
+    currentWindSpeed.innerText = `${data.current.wind_speed.toString().split('.')[0]} m/s`
 
+    tomorrowlocalTime.innerText = `${tomTimeDate.slice(0,3)}
+    ${tomTimeDate.slice(4,-5)}`
+    tomorrowWeather.innerText = `${data.daily[0].weather[0].main}`
+    tomorrowWeatherIcon.src = `http://openweathermap.org/img/wn/${data.daily[0].weather[0].icon}@4x.png`
+    tomorrowTemp.innerText = `${data.daily[0].temp.max.toString().slice(0,-1)}°C`
+    tomorrowWindDegrees.innerText = `(${tWindDegrees}°)\n\n`
+    tomorrowWindDirection.innerText = `${tWindDirection}`
+    tomorrowWindSpeed.innerText = `${data.daily[0].wind_speed.toString().split('.')[0]} m/s`
+}
+
+function windCardinal(windDegrees) {
+    let windDirection = ''
+    
     if (windDegrees > 337.5 && windDegrees < 22.5) {
         windDirection = 'N'
     } else if (windDegrees > 292.5) {
@@ -58,41 +83,5 @@ function getWeather(data) {
     } else {
         windDirection = 'NE'
     }
-
-    if (tWindDegrees > 337.5 && tWindDegrees < 22.5) {
-        tWindDirection = 'N'
-    } else if (tWindDegrees > 292.5) {
-        tWindDirection = "NW"
-    } else if (tWindDegrees > 247.5) {
-        tWindDirection = 'W'
-    } else if (tWindDegrees > 202.5) {
-        tWindDirection = 'SW'
-    } else if (tWindDegrees > 157.5) {
-        tWindDirection = 'S'
-    } else if (tWindDegrees > 112.5) {
-        tWindDirection = 'SE'
-    } else if (tWindDegrees > 67.5) {
-        tWindDirection = 'E'
-    } else {
-        tWindDirection = 'NE'
-    }
-
-    let curTimeDate = new Date(data.current.dt*1000)
-    let tomTimeDate = new Date(data.daily[0].dt*1000)
-
-    localTime.innerText = `${curTimeDate.toDateString().slice(0,-5)}`
-    weatherDiv.innerText = `${data.current.weather[0].main}`
-    weatherIcon.src = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@4x.png`
-    currentTemp.innerText = `${data.current.temp.toString().slice(0,-1)}°C`
-    currentWindDegrees.innerText = `(${windDegrees}°)\n\n`
-    currentWindDirection.innerText = `${windDirection}`
-    currentWindSpeed.innerText = `${data.current.wind_speed.toString().split('.')[0]} m/s`
-
-    tomorrowlocalTime.innerText = `${tomTimeDate.toDateString().slice(0,-5)}`
-    tomorrowWeather.innerText = `${data.daily[0].weather[0].main}`
-    tomorrowWeatherIcon.src = `http://openweathermap.org/img/wn/${data.daily[0].weather[0].icon}@4x.png`
-    tomorrowTemp.innerText = `${data.daily[0].temp.max.toString().slice(0,-1)}°C`
-    tomorrowWindDegrees.innerText = `(${tWindDegrees}°)\n\n`
-    tomorrowWindDirection.innerText = `${tWindDirection}`
-    tomorrowWindSpeed.innerText = `${data.daily[0].wind_speed.toString().split('.')[0]} m/s`
+    return windDirection
 }
