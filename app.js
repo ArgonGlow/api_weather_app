@@ -32,6 +32,11 @@ let units = "metric"
 fetchWeatherData() // populate screen based on default coordinates
 getUserLocation()
 
+
+const selector = document.getElementById('#cities')
+
+selector.onclick = 
+
 function fetchWeatherData(location) {
     if (location !== undefined) {
         geoLat = location.coords.latitude
@@ -58,7 +63,7 @@ function getWeather(data) {
     curTimeDate = curTimeDate.toDateString()
     tomTimeDate = tomTimeDate.toDateString()
 
-    userLocation.innerHTML = `${data.lat}, ${data.lon}, ${data.timezone}`
+    // userLocation.innerHTML = `${data.lat}, ${data.lon}, ${data.timezone}`
     localTime.innerText = `${curTimeDate.slice(0, 3)}
     ${curTimeDate.slice(4,-5)}`
     // localTime.innerText = `${data.timezone}
@@ -117,6 +122,6 @@ function getUserLocation() {
 
 // show possible errors on HTML page
 function showError() {
-    userLocation.innerHTML = "no bueno"
+    // userLocation.innerHTML = "no bueno"
     fetchWeatherData(undefined)
 }

@@ -2,25 +2,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 body {
-    /* padding: 0;
-    margin: 0; */
+    /* padding: 0; */
+    margin: 0;
     /* font-family: "Lato", sans-serif; */
     font-family: "Ubuntu", sans-serif;
     /* background: #2c2c2c; */
-    background: linear-gradient(to top, #00AAFF, #161616);
+    background: linear-gradient(to top, #ee5c30, #ff8800, #00AAFF,#161616 95%);
     /* color: #161616; */
     color: rgba(0, 0, 0, 0.75);
     /* width: 70vw; */
     /* max-width: 600px; */
 }
 
+.navbar {
+    margin: 0px;
+    padding: 10px;
+    position: sticky;
+    width: 100%;
+    box-sizing: border-box;
+    top: 0;
+    align-items: center;
+    color:rgb(255, 255, 255, 1);
+    background: rgb(22, 22, 22, .9);
+    z-index: 1;
+}
+
+.navbar-center {
+    width: 100%;
+    max-width: 1170px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
 .header {
     color:rgb(255, 255, 255, 1);
 }
 
+.cities {
+    background: rgb(22, 22, 22, .9);
+}
+
 .container {
     padding: 0;
-    margin: 0;
+    margin: 1vw;
     display: flex;
     justify-content: center;
 }
@@ -49,9 +75,7 @@ body {
     /* border: 1px solid white; */
     margin: 2px;
     text-align: center;
-    font-size: 100%;
-    /* word-wrap: break-word; */
-    /* word-break: break-all; */
+    /* font-size: 100%; */
 }
 
 .centered-text {

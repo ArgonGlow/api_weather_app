@@ -10,13 +10,22 @@
   <script type="module" src="app.js"></script>
 </head>
 <body>
-  <div class="header">
-    <h1>Sunset Weather</h1>
-    <div id="location"></div>
+  <div class="navbar">
+    <h1 class="navbar-center"><i class="fa-solid fa-cloud-sun"></i>Sunset Weather</h1>
   </div>
   <!-- Current weather -->
   <div class="header">
-    <span style="text-align:center" ><h3>Current Weather</h3></span>
+    <select name="cities" id="cities">
+      <option value="user-location">Current Location</option>
+      <option value="amsterdam">Amsterdam</option>
+      <option value="barcelona">Barcelona</option>
+      <option value="los-angeles">Los Angeles</option>
+      <option value="new-york">New York</option>
+      <option value="prague">Prague</option>
+    </select>
+    <!-- location debugging -->
+    <div id="location"></div>
+    <span style="text-align:center" ><h2>Current Weather</h2></span>
   </div>
   <div class="container">
     <div class="weather-grid">
@@ -39,7 +48,7 @@
   <!-- End of current weather -->
   <!-- Tomorrow's weather -->
   <div class="header">
-    <span style="text-align:center" ><h3>Tomorrow</h3></span>
+    <span style="text-align:center" ><h2>Tomorrow</h2></span>
   </div>
   <div class="container">
     <div class="weather-grid">
