@@ -4,7 +4,8 @@ body {
     /* padding: 0;
     margin: 0; */
     font-family: "Lato", sans-serif;
-    background: #2c2c2c;
+    /* background: #2c2c2c; */
+    background: linear-gradient(to top, #00AAFF, #161616);
     color: #2c2c2c;
     /* width: 70vw; */
     /* max-width: 600px; */
@@ -18,10 +19,12 @@ body {
     display: grid;
     justify-content: center;
     align-content: center;
-    min-width: 100%;
-    grid-template-columns: repeat(2, 20vh);
-    /* grid-template-rows: minmax(120px, auto) repeat(2, 30vh); */
-    grid-template-rows: repeat(2, 20vh);
+    /* min-width: 100%; */
+    /* grid-template-columns: repeat(2, minmax(150px, 50vw)); */
+    grid-template-columns: repeat(2, minmax(20vw, 200px));
+    /* grid-template-rows: repeat(2, minmax(150px, 50vw)); */
+    grid-template-rows: repeat(2, minmax(20vw, 200px));
+    font-size: 2rem;
 }
 
 .weather-tile {
@@ -34,9 +37,13 @@ body {
     /* border: 1px solid white; */
     margin: 2px;
     text-align: center;
-    font-size: 2rem;
+    font-size: 100%;
     /* word-wrap: break-word; */
     /* word-break: break-all; */
+}
+
+.centered-text {
+    font-size: 200%;
 }
 
 .icon {
@@ -48,17 +55,17 @@ body {
 .weather-bottom {
     position: absolute;
     bottom: 10%;
-    font-size:1.8rem;
+    font-size: 90%;
 }
 
 .wind-top {
     position: absolute;
     top: 10%;
-    font-size:1.5rem
+    font-size: 75%;
 }
 
 .wind-bottom {
     position: absolute;
     bottom: 10%;
-    font-size:1.5rem
+    font-size: 75%;
 }

@@ -1,30 +1,36 @@
+// current weather variables
 const weatherDiv = document.getElementById('weather')
 const weatherIcon = document.getElementById('weather-icon')
 const localTime = document.getElementById('local-time')
 const currentTemp = document.getElementById('temperature')
+const currentTempRange = document.getElementById('temp-range')
 const currentWind = document.getElementById('wind')
 const currentWindDegrees = document.getElementById('wind-degrees')
 const currentWindSpeed = document.getElementById('wind-speed')
 const currentWindDirection = document.getElementById('wind-direction')
 
+// tomorrow's weather variables
 const tomorrowWeather = document.getElementById('t-weather')
 const tomorrowWeatherIcon = document.getElementById('t-weather-icon')
 const tomorrowlocalTime = document.getElementById('t-local-time')
 const tomorrowTemp = document.getElementById('t-temperature')
+const tomorrowTempRange = document.getElementById('t-temp-range')
 const tomorrowWind = document.getElementById('t-wind')
 const tomorrowWindDegrees = document.getElementById('t-wind-degrees')
 const tomorrowWindSpeed = document.getElementById('t-wind-speed')
 const tomorrowWindDirection = document.getElementById('t-wind-direction')
 
+const userLocation = document.getElementById('location')
+let geoLat = 51.8428463 // Nijmegen latitude
+let geoLong = 5.7630919 // Nijmegen longitude
 
+getUserLocation()
 
-let latitude = 51.8428463
-let longitude = 5.7630919
+// api call inputs
+const appId = "dcfd021c6615b1778fb5edd7211abf49"
 let excluded = "" // comma delimited string. options are: current, minutely, hourly, daily, alerts
 let units = "metric"
-let apiResonse
-
-const apiAddress = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=${excluded}&units=${units}&appid=dcfd021c6615b1778fb5edd7211abf49`
+const apiAddress = `https://api.openweathermap.org/data/2.5/onecall?lat=${geoLat}&lon=${geoLong}&exclude=${excluded}&units=${units}&appid=${appId}`
 
 fetch(apiAddress)
     .then(response => response.json())
@@ -41,16 +47,18 @@ function getWeather(data) {
     let curTimeDate = new Date(data.current.dt*1000)
     let tomTimeDate = new Date(data.daily[1].dt*1000)
     
-    curTimeDate = curTimeDate.toDateString()
+    curTimeDate = curTimeDate.toTimeString()
     tomTimeDate = tomTimeDate.toDateString()
 
     console.log(tomTimeDate)
 
-    localTime.innerText = `${curTimeDate.slice(0, 3)}
-    ${curTimeDate.slice(4,-5)}`
+    // localTime.innerText = `${curTimeDate.slice(0, 3)}
+    // ${curTimeDate.slice(4,-5)}`
+    localTime.innerText = `${curTimeDate}`
     weatherDiv.innerText = `${data.current.weather[0].main}`
     weatherIcon.src = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@4x.png`
     currentTemp.innerText = `${data.current.temp.toString().slice(0,-1)}°C`
+    currentTempRange.innerText = `${data.daily[0].temp.min.toString().slice(0,-1)}/${data.daily[0].temp.max.toString().slice(0,-1)}°C`
     currentWindDegrees.innerText = `(${windDegrees}°)\n\n`
     currentWindDirection.innerText = `${windDirection}`
     currentWindSpeed.innerText = `${data.current.wind_speed.toString().split('.')[0]} m/s`
@@ -60,6 +68,7 @@ function getWeather(data) {
     tomorrowWeather.innerText = `${data.daily[1].weather[0].main}`
     tomorrowWeatherIcon.src = `http://openweathermap.org/img/wn/${data.daily[1].weather[0].icon}@4x.png`
     tomorrowTemp.innerText = `${data.daily[1].temp.max.toString().slice(0,-1)}°C`
+    tomorrowTempRange.innerText = `${data.daily[1].temp.min.toString().slice(0,-1)}/${data.daily[1].temp.max.toString().slice(0,-1)}°C`
     tomorrowWindDegrees.innerText = `(${tWindDegrees}°)\n\n`
     tomorrowWindDirection.innerText = `${tWindDirection}`
     tomorrowWindSpeed.innerText = `${data.daily[1].wind_speed.toString().split('.')[0]} m/s`
@@ -86,4 +95,23 @@ function windCardinal(windDegrees) {
         windDirection = 'NE'
     }
     return windDirection
+}
+
+function getUserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError)
+    } else {
+        console.log("Geolocation not supported.")
+    }
+}
+
+function showPosition(position) {
+    userLocation.innerHTML = `Latitude: ${position.coords.latitude}
+    Longitude: ${position.coords.longitude}`
+    geoLat = position.coords.latitude
+    geoLong = position.coords.longitude
+}
+
+function showError() {
+    userLocation.innerHTML = "no bueno"
 }

@@ -12,6 +12,10 @@
 <body>
   <div class="header">
     <h1>Sunset Weather</h1>
+    <div id="location"></div>
+  </div>
+  <!-- Current weather -->
+  <div class="header">
     <span style="text-align:center" ><h3>Current Weather</h3></span>
   </div>
   <div class="weather-grid">
@@ -22,15 +26,16 @@
       </div>
       <div class="weather-tile">
         <div id="temperature"></div>
-        <div id="temp-min"></div>
-        <div id="temp-max"></div>
+        <div class="wind-bottom" id="temp-range"></div>
       </div>
       <div class="weather-tile" id="wind">
         <div class="wind-top" id="wind-degrees"></div>
-        <div id="wind-direction"></div>
+        <div class="centered-text" id="wind-direction"></div>
         <div class="wind-bottom" id="wind-speed"></div>
       </div>
   </div>
+  <!-- End of current weather -->
+  <!-- Tomorrow's weather -->
   <div class="header">
     <span style="text-align:center" ><h3>Tomorrow</h3></span>
   </div>
@@ -40,12 +45,16 @@
       <img class="icon" id="t-weather-icon" src="" alt="weather icon">
       <div class="weather-bottom" id="t-weather"></div>
     </div>
-    <div class="weather-tile" id="t-temperature"></div>
+    <div class="weather-tile">
+      <div id="t-temperature"></div>
+      <div class="wind-bottom" id="t-temp-range"></div>
+    </div>
     <div class="weather-tile" id="t-wind">
       <div class="wind-top" id="t-wind-degrees"></div>
-      <div id="t-wind-direction"></div>
+      <div class="centered-text" id="t-wind-direction"></div>
       <div class="wind-bottom" id="t-wind-speed"></div>
     </div>
   </div>
+  <!-- End of tomorrow's weather -->
 </body>
 </html>
