@@ -21,22 +21,35 @@ const tomorrowWindSpeed = document.getElementById('t-wind-speed')
 const tomorrowWindDirection = document.getElementById('t-wind-direction')
 
 const userLocation = document.getElementById('location')
-let geoLat = 51.8428463 // Nijmegen latitude
-let geoLong = 5.7630919 // Nijmegen longitude
-
-getUserLocation()
 
 // api call inputs
+let geoLat = 51.8428463 // Nijmegen latitude
+let geoLong = 5.7630919 // Nijmegen longitude
 const appId = "dcfd021c6615b1778fb5edd7211abf49"
 let excluded = "" // comma delimited string. options are: current, minutely, hourly, daily, alerts
 let units = "metric"
-const apiAddress = `https://api.openweathermap.org/data/2.5/onecall?lat=${geoLat}&lon=${geoLong}&exclude=${excluded}&units=${units}&appid=${appId}`
 
-fetch(apiAddress)
+fetchWeatherData() // populate screen based on default coordinates
+getUserLocation()
+
+function fetchWeatherData(location) {
+    // geoLat = (typeof geoLat === 'undefined') ? 51.8428463 : location.coords.latitude
+    // geoLong = (typeof geoLong === 'undefined') ? 5.7630919 : location.coords.longitude
+    if (location !== undefined) {
+        geoLat = location.coords.latitude
+        geoLong = location.coords.longitude
+    }
+    console.log(geoLat)
+    console.log(geoLong)
+    
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${geoLat}&lon=${geoLong}&exclude=${excluded}&units=${units}&appid=${appId}`)
     .then(response => response.json())
     .then(data => getWeather(data))
 
     .catch(console.error)
+}
+
+//fetchWeatherData(apiAddress)
 
 function getWeather(data) {
 
@@ -44,17 +57,18 @@ function getWeather(data) {
     let windDirection = windCardinal(windDegrees)
     let tWindDegrees = data.daily[1].wind_deg
     let tWindDirection = windCardinal(tWindDegrees)
-    let curTimeDate = new Date(data.current.dt*1000)
-    let tomTimeDate = new Date(data.daily[1].dt*1000)
+    let curTimeDate = new Date(data.current.dt * 1000)
+    let tomTimeDate = new Date(data.daily[1].dt * 1000)
     
-    curTimeDate = curTimeDate.toTimeString()
+    curTimeDate = curTimeDate.toDateString()
     tomTimeDate = tomTimeDate.toDateString()
 
     console.log(tomTimeDate)
 
-    // localTime.innerText = `${curTimeDate.slice(0, 3)}
-    // ${curTimeDate.slice(4,-5)}`
-    localTime.innerText = `${curTimeDate}`
+    localTime.innerText = `${curTimeDate.slice(0, 3)}
+    ${curTimeDate.slice(4,-5)}`
+    // localTime.innerText = `${data.timezone}
+    // ${curTimeDate}`
     weatherDiv.innerText = `${data.current.weather[0].main}`
     weatherIcon.src = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@4x.png`
     currentTemp.innerText = `${data.current.temp.toString().slice(0,-1)}°C`
@@ -62,6 +76,9 @@ function getWeather(data) {
     currentWindDegrees.innerText = `(${windDegrees}°)\n\n`
     currentWindDirection.innerText = `${windDirection}`
     currentWindSpeed.innerText = `${data.current.wind_speed.toString().split('.')[0]} m/s`
+
+    userLocation.append(`
+    ${data.lat}, ${data.lon}, ${data.timezone}`)
 
     tomorrowlocalTime.innerText = `${tomTimeDate.slice(0,3)}
     ${tomTimeDate.slice(4,-5)}`
@@ -99,7 +116,7 @@ function windCardinal(windDegrees) {
 
 function getUserLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError)
+        navigator.geolocation.getCurrentPosition(fetchWeatherData, showError)
     } else {
         console.log("Geolocation not supported.")
     }
@@ -114,4 +131,5 @@ function showPosition(position) {
 
 function showError() {
     userLocation.innerHTML = "no bueno"
+    fetchWeatherData(undefined)
 }
