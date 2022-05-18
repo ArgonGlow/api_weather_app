@@ -1,12 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 body {
     /* padding: 0;
     margin: 0; */
-    font-family: "Lato", sans-serif;
+    /* font-family: "Lato", sans-serif; */
+    font-family: "Ubuntu", sans-serif;
     /* background: #2c2c2c; */
     background: linear-gradient(to top, #00AAFF, #161616);
-    color: #2c2c2c;
+    /* color: #161616; */
+    color: rgba(0, 0, 0, 0.75);
     /* width: 70vw; */
     /* max-width: 600px; */
 }
@@ -15,15 +18,24 @@ body {
     color:rgb(255, 255, 255, 1);
 }
 
+.container {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
 .weather-grid {
     display: grid;
     justify-content: center;
     align-content: center;
     /* min-width: 100%; */
-    /* grid-template-columns: repeat(2, minmax(150px, 50vw)); */
-    grid-template-columns: repeat(2, minmax(20vw, 200px));
-    /* grid-template-rows: repeat(2, minmax(150px, 50vw)); */
-    grid-template-rows: repeat(2, minmax(20vw, 200px));
+    max-width: 1080px;
+    max-height: 1080px;
+    grid-template-columns: repeat(2, minmax(150px, 50vw));
+    /* grid-template-columns: repeat(2, minmax(20vw, 200px)); */
+    grid-template-rows: repeat(2, minmax(150px, 50vw));
+    /* grid-template-rows: repeat(2, minmax(20vw, 200px)); */
     font-size: 2rem;
 }
 
