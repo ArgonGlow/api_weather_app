@@ -33,16 +33,16 @@ fetchWeatherData() // populate screen based on default coordinates
 getUserLocation()
 
 
-const selector = document.getElementById('#cities')
-
-selector.onclick = 
+//const selector = document.getElementById('#cities')
+//selector.onclick = 
 
 function fetchWeatherData(location) {
     if (location !== undefined) {
         geoLat = location.coords.latitude
         geoLong = location.coords.longitude
     }
-    
+    console.log(location)
+
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${geoLat}&lon=${geoLong}&exclude=${excluded}&units=${units}&appid=${appId}`)
     .then(response => response.json())
     .then(data => getWeather(data))
